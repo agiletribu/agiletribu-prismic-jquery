@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="js/vendor/handlebars.js"></script>
+        <script src="js/vendor/jquery-2.1.1.min.js"></script>
+        <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
+        <script src="js/prismic-configuration.js"></script>
+        <script src="js/prismic-helpers.js"></script>
+        <script src="js/prismic-templates.js"></script>
+
+        <title>AgileTribu - Erreur</title>
+    </head>
+    <body>
+
+        <h1>Une erreur a eu lieu côté serveur</h1>
+
+        <p>
+            <a href="index.html">Revenir à l'accueil</a>
+        </p>
+
+        <script type="text/javascript">
+            $(function(){
+                if (window.location.hash && window.location.hash.length>1) {
+                    $('h1').html("An error happened on the server side: "+window.location.hash.substring(1));
+                }
+            });
+        </script>
+
+    </body>
+</html>
