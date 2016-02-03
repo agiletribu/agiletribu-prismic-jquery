@@ -51,7 +51,7 @@
 
         <ul id="list">
             <script id="entry-template" type="text/x-handlebars-template">
-                {{#each _docs.[results]}}
+                {{#each results}}
                     <li>{{uid}}</li>
                 {{/each}}
             </script>
@@ -123,6 +123,9 @@
             var source   = $("#entry-template").html();
             var template = Handlebars.compile(source);
             var html = template(_docs);
+            console.log(html);
+            $("#list").html(html);
+
 
             $(function() {
 
