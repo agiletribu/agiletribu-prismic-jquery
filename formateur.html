@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Basic Page Needs
+    ================================================== -->
+        <meta charset="utf-8">
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AgileTribu - Formateur</title>
+        <meta name="description"
+              content="AgileTribu est un espace communautaire, d'innovation de services pour améliorer les pratiques Agiles">
+        <meta name="keywords" content="AgileTribu, communauté, Agile, Digital, Marketing">
+        <meta name="author" content="AgileTribu.com">
+
+        <!-- Favicons
+            ================================================== -->
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
+        <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+        <!-- Nivo Lightbox
+            ================================================== -->
+        <link rel="stylesheet" href="css/nivo-lightbox.css">
+        <link rel="stylesheet" href="css/nivo_lightbox_themes/default/default.css">
+
+        <!-- Slider
+            ================================================== -->
+        <link href="css/owl.carousel.css" rel="stylesheet" media="screen">
+        <link href="css/owl.theme.css" rel="stylesheet" media="screen">
+
+        <!-- Stylesheet
+            ================================================== -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+        <!-- Google Fonts
+            ================================================== -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+        <script type="text/javascript" src="js/modernizr.custom.js"></script>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-65085367-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="js/vendor/handlebars.js"></script>
+        <script src="js/vendor/jquery-2.1.1.min.js"></script>
+        <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
+        <script src="js/prismic-configuration.js"></script>
+        <script src="js/prismic-helpers.js"></script>
+        <script src="js/prismic-templates.js"></script>
+        <script src="js/templates.js"></script>
+    </head>
+    <body class="loading">
+        <header>
+            {{> header }}
+        </header>
+
+        <!-- Home Section
+    ================================================== -->
+        <div id="tf-home">
+            <div class="overlay overlay-formateur">
+                <div class="container">
+                    <div class="content-heading">
+                        <div class="row">
+                            <div class="col-sm-4 text-center">
+                                <img src="{{[formateur.image].value.main.url}}" alt="{{[formateur.name].value.[0].text}}" class="img-responsive img-circle img-thumbnail img-formateur">
+                            </div>
+
+                            <div class="col-sm-8">
+                                <h1>{{[formateur.name].value.[0].text}}</h1>
+                                <blockquote>{{[formateur.bio].value.[0].text}}</blockquote>
+                                {{#if [formateur.linkedin]}}
+                                <a href="{{[formateur.linkedin].value}}"><i class="fa fa-2x fa-linkedin"></i></a>
+                                {{/if}}
+
+                                {{#if [formateur.twitter]}}
+                                &nbsp;
+                                <a href="{{[formateur.twitter].value}}"><i class="fa fa-2x fa-twitter"></i></a>
+                                {{/if}}
+
+                                {{#if [formateur.slideshare]}}
+                                &nbsp;
+                                <a href="{{[formateur.slideshare].value}}"><i class="fa fa-2x fa-slideshare"></i></a>
+                                {{/if}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tf-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div id="tf-xp-terrain">
+                            <div class="section-header">
+                                <h2>Expérience de <span class="highlight">terrain</span></h2>
+                            </div>
+
+                            {{#each value}}
+                                <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
+                                <blockquote>
+                                    {{#each this.description.value}}
+                                        {{this.text}}
+                                    {{/each}}
+                                </blockquote>
+
+                                {{#unless @last}}
+                                    <hr />
+                                {{/unless}}
+                            {{/each}}
+                        </div>
+
+                        <div id="tf-xp-formations">
+                            <div class="section-header">
+                                <h2>Expérience en <span class="highlight">formation</span></h2>
+                            </div>
+
+                            {{#each value}}
+                                <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
+                                <blockquote>
+                                    {{#each this.description.value}}
+                                        {{this.text}}
+                                    {{/each}}
+                                </blockquote>
+
+                                {{#unless @last}}
+                                    <hr />
+                                {{/unless}}
+                            {{/each}}
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div id="tf-formations-certifs">
+                            <div class="section-header">
+                                <h2><span class="highlight">Formations</span> et <span class="highlight">certifications</span> effectuées</h2>
+                            </div>
+
+                            <ul class="list-group list-group-formateur">
+                                {{#each value}}
+                                <li class="list-group-item">
+                                    {{#each this.name.value}}
+                                        {{this.text}}
+                                    {{/each}}
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+
+                        <div id="tf-formateur-communaute">
+                            <div class="section-header">
+                                <h2><span class="highlight">Communauté</span></h2>
+                            </div>
+
+                            <div class="tf-formateur-communaute-block">
+                                {{#each value}}
+                                <p>
+                                    {{this.text}}
+                                </p>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div id="tf-formations-publications">
+                            <div class="section-header">
+                                <h2><span class="highlight">Publications</span></h2>
+                            </div>
+
+                            <ul class="list-group list-group-formateur">
+                                {{#each value}}
+                                <li class="list-group-item">
+                                    <span class="label label-default"><i class="fa {{this.picto.value}}"></i></span>
+                                    <a href="{{this.url.value}}">{{this.entry.value}}</a>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="//static.cdn.prismic.io/prismic.js"></script>
+
+        <!-- Logic -->
+
+        <script type="text/javascript">
+            $(function() {
+
+                Helpers.withPrismic(function(ctx) {
+
+                    // Retrieve the document
+                    var id = Helpers.queryString['id'],
+                        slug = Helpers.queryString['slug'];
+
+                    ctx.api.form("everything").ref(ctx.ref).query('[[:d = at(document.id, "' + id + '")]]').submit(function(err, docs) {
+
+                        if (err) { Configuration.onPrismicError(err); return; }
+
+                        var doc = docs.results[0];
+
+                        // If there is no documents for this id
+                        if(!doc) {
+                            document.location = 'notfound.html';
+                        }
+
+                        // If the slug doesn't match
+                        if(doc.slug != slug) {
+                            // If this is an old valid slug, redirect
+                            if(doc.slugs.indexOf(slug) > -1) {
+                                document.location = 'detail.html?id=' + doc.id + '&slug=' + doc.slug + '&ref=' + ref;
+                            } else {
+                                document.location = 'notfound.html';
+                            }
+                        }
+
+                        // Feed the templates
+                        $('header, article, aside, footer').render({
+                            doc: doc,
+                            ctx: ctx
+                        });
+
+                        console.log(doc.fragments);
+                        var source_head = $(".overlay-formateur").html();
+                        var template_head = Handlebars.compile(source_head);
+                        var head_html = template_head(doc.fragments);
+                        $(".overlay-formateur").html(head_html);
+
+                        var source_terrain = $('#tf-xp-terrain').html();
+                        var template_terrain = Handlebars.compile(source_terrain);
+                        var terrain_html = template_terrain(doc.fragments['formateur.experiences_terrain']);
+                        $('#tf-xp-terrain').html(terrain_html);
+
+                        var source_formations = $('#tf-xp-formations').html();
+                        var template_formations = Handlebars.compile(source_formations);
+                        var formations_html = template_formations(doc.fragments['formateur.experiences_formation']);
+                        $('#tf-xp-formations').html(formations_html);
+
+                        var source_certifs = $('#tf-formations-certifs').html();
+                        var template_certifs = Handlebars.compile(source_certifs);
+                        var certifs_html = template_certifs(doc.fragments['formateur.certifications']);
+                        $('#tf-formations-certifs').html(certifs_html);
+
+                        var source_community = $('#tf-formateur-communaute').html();
+                        var template_community = Handlebars.compile(source_community);
+                        var community_html = template_community(doc.fragments['formateur.community']);
+                        $('#tf-formateur-communaute').html(community_html);
+
+                        var source_publications = $('#tf-formations-publications').html();
+                        var template_publications = Handlebars.compile(source_publications);
+                        var publications_html = template_publications(doc.fragments['formateur.publications']);
+                        $('#tf-formations-publications').html(publications_html);
+                    });
+
+                });
+
+            });
+            var header_html = Handlebars.partials['header']();
+            $('header').html(header_html);
+        </script>
+
+    </body>
+</html>

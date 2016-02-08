@@ -11,10 +11,6 @@
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/prismic-templates.js"></script>
-
-        <script>
-            var _docs = {"results":[{"uid":1},{"uid":2}]}
-        </script>
     </head>
     <body>
 
@@ -52,7 +48,11 @@
         <ul id="list">
             <script id="entry-template" type="text/x-handlebars-template">
                 {{#each results}}
-                    <li>{{uid}}</li>
+                    {{#if fragments.[formateur.name]}}
+                        <li><a href="formateur.html?id={{id}}&slug={{slug}}">{{fragments.[formateur.name].value.[0].text}}</a></li>
+                    {{else}}
+                        <li><a href="detail.html?id={{id}}&slug={{slug}}">{{fragments.[formateur.name].value.[0].text}}</a></li>
+                    {{/if}}
                 {{/each}}
             </script>
             <!--<script type="text/template">
@@ -122,9 +122,8 @@
         <script type="text/javascript">
             var source   = $("#entry-template").html();
             var template = Handlebars.compile(source);
-            var html = template(_docs);
-            console.log(html);
-            $("#list").html(html);
+            var html;
+
 
 
             $(function() {
@@ -150,6 +149,11 @@
                                 });
                             }
                         );
+                        html = template(docs);
+                        console.log(docs.results);
+                        console.log(docs.results[0].fragments['formateur.name'].value[0].text);
+                        console.log(html)
+                        $("#list").html(html);
                     });
                 });
 
