@@ -65,12 +65,14 @@
         <![endif]-->
 
         <script src="js/vendor/handlebars.js"></script>
+        <script src="js/vendor/lodash.core.js"></script>
         <script src="js/vendor/jquery-2.1.1.min.js"></script>
         <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/prismic-templates.js"></script>
-        <script src="js/templates.js"></script>
+        <script src="js/handlebars-templates.js"></script>
+        <script src="js/handlebars-helpers.js"></script>
     </head>
     <body class="loading">
         <header>
@@ -258,29 +260,7 @@
                             ctx: ctx
                         });
 
-                        Handlebars.registerHelper('asHtml', function(item) {
-                            var html;
-                            for (value in item) {
-                                if("type" == "paragraph") {
-                                    var value_html = '<p>' + value + '</p>';
-
-                                    for(span in spans) {
-                                        value_html = [
-                                            value_html.slice(0, span.start),
-                                            '<' + span.type + '>',
-                                            value_html.slice(span.start, span.end),
-                                            '</' + span.type + '>',
-                                            value_html.slice(span.end)
-                                        ].join('');
-                                    }
-
-                                    html = html + value_html;
-                                }
-                            }
-                            return html;
-                        });
-
-                        console.log(doc.fragments);
+                        console.log(doc.fragments['formateur.bio']);
                         var source_head = $(".overlay-formateur").html();
                         var template_head = Handlebars.compile(source_head);
                         var head_html = template_head(doc.fragments);
