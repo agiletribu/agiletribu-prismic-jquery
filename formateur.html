@@ -90,19 +90,26 @@
 
                             <div class="col-sm-8">
                                 <h1>{{[formateur.name].value.[0].text}}</h1>
-                                <blockquote>{{[formateur.bio].value.[0].text}}</blockquote>
+                                <blockquote>
+                                    {{asHtml [formateur.bio]}}
+
+                                    {{#each [formateur.bio].value}}
+                                        <p>{{this.text}}</p>
+                                    {{/each}}
+                                </blockquote>
+
                                 {{#if [formateur.linkedin]}}
-                                <a href="{{[formateur.linkedin].value}}"><i class="fa fa-2x fa-linkedin"></i></a>
+                                <a href="{{[formateur.linkedin].value.url}}"><i class="fa fa-2x fa-linkedin"></i></a>
                                 {{/if}}
 
                                 {{#if [formateur.twitter]}}
                                 &nbsp;
-                                <a href="{{[formateur.twitter].value}}"><i class="fa fa-2x fa-twitter"></i></a>
+                                <a href="{{[formateur.twitter].value.url}}"><i class="fa fa-2x fa-twitter"></i></a>
                                 {{/if}}
 
                                 {{#if [formateur.slideshare]}}
                                 &nbsp;
-                                <a href="{{[formateur.slideshare].value}}"><i class="fa fa-2x fa-slideshare"></i></a>
+                                <a href="{{[formateur.slideshare].value.url}}"><i class="fa fa-2x fa-slideshare"></i></a>
                                 {{/if}}
 
                             </div>
@@ -125,7 +132,7 @@
                                 <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
                                 <blockquote>
                                     {{#each this.description.value}}
-                                        {{this.text}}
+                                        <p>{{this.text}}</p>
                                     {{/each}}
                                 </blockquote>
 
@@ -144,7 +151,7 @@
                                 <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
                                 <blockquote>
                                     {{#each this.description.value}}
-                                        {{this.text}}
+                                        <p>{{this.text}}</p>
                                     {{/each}}
                                 </blockquote>
 
@@ -196,7 +203,8 @@
                                 {{#each value}}
                                 <li class="list-group-item">
                                     <span class="label label-default"><i class="fa {{this.picto.value}}"></i></span>
-                                    <a href="{{this.url.value}}">{{this.entry.value}}</a>
+                                    &nbsp;
+                                    <a href="{{this.url.value.url}}">{{this.entry.value}}</a>
                                 </li>
                                 {{/each}}
                             </ul>
@@ -204,6 +212,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="test">
+            {{this}}
         </div>
 
         <script src="//static.cdn.prismic.io/prismic.js"></script>
@@ -246,6 +258,28 @@
                             ctx: ctx
                         });
 
+                        Handlebars.registerHelper('asHtml', function(item) {
+                            var html;
+                            for (value in item) {
+                                if("type" == "paragraph") {
+                                    var value_html = '<p>' + value + '</p>';
+
+                                    for(span in spans) {
+                                        value_html = [
+                                            value_html.slice(0, span.start),
+                                            '<' + span.type + '>',
+                                            value_html.slice(span.start, span.end),
+                                            '</' + span.type + '>',
+                                            value_html.slice(span.end)
+                                        ].join('');
+                                    }
+
+                                    html = html + value_html;
+                                }
+                            }
+                            return html;
+                        });
+
                         console.log(doc.fragments);
                         var source_head = $(".overlay-formateur").html();
                         var template_head = Handlebars.compile(source_head);
@@ -276,6 +310,7 @@
                         var template_publications = Handlebars.compile(source_publications);
                         var publications_html = template_publications(doc.fragments['formateur.publications']);
                         $('#tf-formations-publications').html(publications_html);
+
                     });
 
                 });

@@ -891,13 +891,22 @@ ul.cat li a.active {
 #tf-home .overlay-formateur {
     padding: 5% 0;
 }
-
 #tf-home .overlay-formateur .container {
     padding-top: 5%
+}
+blockquote p {
+    font-size: 15px;
+}
+#tf-home .overlay-formateur .container blockquote p {
+    font-size: 17.5px;
 }
 .list-group-formateur {
     padding: 0 20px;
 }
+.img-formateur {
+    max-height: 250px;
+}
+
 /* Blog Section */
 #tf-blog,
 #blog-post { padding: 60px 0 }
@@ -1168,8 +1177,5 @@ ul.meta-tags li:last-child:after { content: ' ' }
 .photo-fix-sized:hover {
     -webkit-filter: sepia(75%);
     filter: sepia(75%);
-}
-.img-formateur {
-    max-height: 250px;
 }
 

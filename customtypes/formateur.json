@@ -1,0 +1,164 @@
+{
+  "Présentation" : {
+    "uid" : {
+      "type" : "UID",
+      "config" : {
+        "placeholder" : "UID"
+      }
+    },
+    "image" : {
+      "type" : "Image"
+    },
+    "name" : {
+      "type" : "StructuredText",
+      "config" : {
+        "single" : "heading1",
+        "placeholder" : "Name..."
+      }
+    },
+    "bio" : {
+      "type" : "StructuredText",
+      "config" : {
+        "multi" : "paragraph,em,strong,hyperlink",
+        "placeholder" : "Biographie..."
+      }
+    }
+  },
+  "Liens" : {
+    "linkedin" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "web",
+        "placeholder" : "https://linkedin.com/in/..."
+      }
+    },
+    "twitter" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "web",
+        "placeholder" : "https://twitter.com/..."
+      }
+    },
+    "slideshare" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "web",
+        "placeholder" : "https://slideshare.net/..."
+      }
+    }
+  },
+  "XP terrain" : {
+    "experiences_terrain" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "name" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Nom"
+            }
+          },
+          "picto" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "fa-icon"
+            }
+          },
+          "periode" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Période"
+            }
+          },
+          "description" : {
+            "type" : "StructuredText",
+            "config" : {
+              "placeholder" : "Description"
+            }
+          }
+        }
+      }
+    }
+  },
+  "XP formation" : {
+    "experiences_formation" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "name" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Nom"
+            }
+          },
+          "picto" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "fa-icon"
+            }
+          },
+          "periode" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Période"
+            }
+          },
+          "description" : {
+            "type" : "StructuredText",
+            "config" : {
+              "placeholder" : "Description"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Formations et Certifications" : {
+    "certifications" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "name" : {
+            "type" : "StructuredText",
+            "config" : {
+              "placeholder" : "Nom"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Communauté" : {
+    "community" : {
+      "type" : "StructuredText"
+    }
+  },
+  "Publications" : {
+    "publications" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "entry" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Nom"
+            }
+          },
+          "picto" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "fa-icon"
+            }
+          },
+          "url" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "web",
+              "placeholder" : "https://..."
+            }
+          }
+        }
+      }
+    }
+  }
+}
