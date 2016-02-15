@@ -11,6 +11,8 @@
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/prismic-templates.js"></script>
+        <script src="js/handlebars-templates.js"></script>
+        <script src="js/handlebars-helpers.js"></script>
     </head>
     <body>
 
@@ -48,11 +50,13 @@
         <ul id="list">
             <script id="entry-template" type="text/x-handlebars-template">
                 {{#each results}}
-                    {{#if fragments.[formateur.name]}}
-                        <li><a href="formateur.html?id={{id}}&slug={{slug}}">{{fragments.[formateur.name].value.[0].text}}</a></li>
+                    {{#if_eq type "formateur"}}
+                        <li><a href="formateur.html?id={{id}}&slug={{slug}}">{{fragments.[formateur.name].value}}</a></li>
+                    {{else if_eq type "formation"}}
+                        <li><a href="formation.html?id={{id}}&slug={{slug}}">{{fragments.[formation.name].value}}</a></li>
                     {{else}}
-                        <li><a href="detail.html?id={{id}}&slug={{slug}}">{{fragments.[formateur.name].value.[0].text}}</a></li>
-                    {{/if}}
+                        <li><a href="detail.html?id={{id}}&slug={{slug}}">{{slug}}</a></li>
+                    {{/if_eq}}
                 {{/each}}
             </script>
             <!--<script type="text/template">
@@ -151,7 +155,6 @@
                         );
                         html = template(docs);
                         console.log(docs.results);
-                        console.log(docs.results[0].fragments['formateur.name'].value[0].text);
                         console.log(html)
                         $("#list").html(html);
                     });

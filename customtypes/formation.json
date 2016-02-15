@@ -1,0 +1,104 @@
+{
+  "Présentation" : {
+    "uid" : {
+      "type" : "UID",
+      "config" : {
+        "placeholder" : "UID"
+      }
+    },
+    "name" : {
+      "type" : "Text",
+      "config" : {
+        "placeholder" : "Nom de la formation..."
+      }
+    },
+    "presentation" : {
+      "type" : "Text",
+      "config" : {
+        "placeholder" : "Courte présentation de la formation..."
+      }
+    },
+    "objectifs" : {
+      "type" : "StructuredText",
+      "config" : {
+        "placeholder" : "Objectifs..."
+      }
+    },
+    "moyens" : {
+      "type" : "StructuredText",
+      "config" : {
+        "placeholder" : "Moyens pédagogiques..."
+      }
+    },
+    "infos" : {
+      "type" : "StructuredText",
+      "config" : {
+        "placeholder" : "Informations pratiques..."
+      }
+    },
+    "formateurs" : {
+      "type" : "Group",
+      "fieldset" : "Formateurs",
+      "config" : {
+        "fields" : {
+          "name" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Nom du formateur"
+            }
+          },
+          "image" : {
+            "type" : "Image"
+          },
+          "link" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "document",
+              "customtypes" : [ "formateur" ],
+              "placeholder" : "Lien vers la fiche formateur"
+            }
+          }
+        }
+      }
+    },
+    "contact" : {
+      "type" : "Link",
+      "fieldset" : "Lien vers le formulaire de contact",
+      "config" : {
+        "select" : "web",
+        "placeholder" : "https://johndoe.wufoo.com/forms/..."
+      }
+    },
+    "pdf" : {
+      "type" : "Link",
+      "fieldset" : "Détails de la formation (PDF)",
+      "config" : {
+        "select" : "media",
+        "placeholder" : "Détails de la formation (PDF)"
+      }
+    }
+  },
+  "Prochaines formations" : {
+    "prochaines_formations" : {
+      "type" : "Group",
+      "config" : {
+        "fields" : {
+          "date" : {
+            "type" : "Text",
+            "fieldset" : "Date",
+            "config" : {
+              "placeholder" : "30 mars et 1er avril 2016"
+            }
+          },
+          "formateurs" : {
+            "type" : "Text",
+            "fieldset" : "Détails",
+            "config" : {
+              "placeholder" : "Avec John & Peter"
+            }
+          }
+        }
+      }
+    }
+  }
+}

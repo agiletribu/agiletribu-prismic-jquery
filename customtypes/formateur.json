@@ -10,9 +10,8 @@
       "type" : "Image"
     },
     "name" : {
-      "type" : "StructuredText",
+      "type" : "Text",
       "config" : {
-        "single" : "heading1",
         "placeholder" : "Name..."
       }
     },
@@ -27,6 +26,7 @@
   "Liens" : {
     "linkedin" : {
       "type" : "Link",
+      "fieldset" : "Profil LinkedIn",
       "config" : {
         "select" : "web",
         "placeholder" : "https://linkedin.com/in/..."
@@ -34,6 +34,7 @@
     },
     "twitter" : {
       "type" : "Link",
+      "fieldset" : "Profil Twitter",
       "config" : {
         "select" : "web",
         "placeholder" : "https://twitter.com/..."
@@ -41,6 +42,7 @@
     },
     "slideshare" : {
       "type" : "Link",
+      "fieldset" : "Profil Slideshare",
       "config" : {
         "select" : "web",
         "placeholder" : "https://slideshare.net/..."
@@ -50,6 +52,7 @@
   "XP terrain" : {
     "experiences_terrain" : {
       "type" : "Group",
+      "fieldset" : "Expériences de terrain",
       "config" : {
         "fields" : {
           "name" : {
@@ -83,6 +86,7 @@
   "XP formation" : {
     "experiences_formation" : {
       "type" : "Group",
+      "fieldset" : "Expérience en formation",
       "config" : {
         "fields" : {
           "name" : {
@@ -116,6 +120,7 @@
   "Formations et Certifications" : {
     "certifications" : {
       "type" : "Group",
+      "fieldset" : "Formations et certifications",
       "config" : {
         "fields" : {
           "name" : {
@@ -136,6 +141,7 @@
   "Publications" : {
     "publications" : {
       "type" : "Group",
+      "fieldset" : "Publications",
       "config" : {
         "fields" : {
           "entry" : {
