@@ -82,7 +82,7 @@
         <!-- Home Section
     ================================================== -->
         <div id="tf-home">
-            <div class="overlay overlay-formateur">
+            <div class="overlay overlay-formation">
                 <div class="container">
                     <div class="content-heading">
                         <h1>{{[formation.name].value}}</h1>
@@ -219,6 +219,10 @@
             </div>
         </div>
 
+        <footer>
+            {{> footer }}
+        </footer>
+
         <script src="//static.cdn.prismic.io/prismic.js"></script>
 
         <!-- Logic -->
@@ -261,10 +265,10 @@
 
                         document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
 
-                        var source_head = $(".overlay-formateur").html();
+                        var source_head = $("#tf-home").html();
                         var template_head = Handlebars.compile(source_head);
                         var head_html = template_head(doc.fragments);
-                        $(".overlay-formateur").html(head_html);
+                        $("#tf-home").html(head_html);
 
                         var source_home = $('#tf-home').html();
                         var template_home = Handlebars.compile(source_home);
@@ -320,8 +324,12 @@
                 });
 
             });
+
             var header_html = Handlebars.partials['header']();
             $('header').html(header_html);
+
+            var footer_html = Handlebars.partials['footer']();
+            $('footer').html(footer_html);
         </script>
 
     </body>
