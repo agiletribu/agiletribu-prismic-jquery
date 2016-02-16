@@ -172,7 +172,6 @@
                         var source   = $("#tf-content").html();
                         var template = Handlebars.compile(source);
                         var html = template(docs);
-                        console.log(docs.results);
                         $("#tf-content").html(html);
                     });
                 });
