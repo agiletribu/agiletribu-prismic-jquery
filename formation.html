@@ -101,7 +101,7 @@
                     <h3><a data-toggle="collapse" href="#collapseProchainesFormations" aria-expanded="true" aria-controls="collapseProchainesFormations"> Prochaines dates de formations <span class="caret"></span></a></h3>
                 </div>
 
-                <div class="collapse" id="collapseProchainesFormations">
+                <div class="collapse in" id="collapseProchainesFormations">
                         {{#each value}}
                             {{#if @first}}
                                 <div class="row">
@@ -309,10 +309,12 @@
                         var pratique_html = template_pratique(doc.fragments['formation.infos']);
                         $('#tf-pratique').html(pratique_html);
 
-                        var source_file = $('#tf-bottom-buttons').html();
-                        var template_file = Handlebars.compile(source_file);
-                        var file_html = template_file(doc.fragments['formation.pdf'].value.file.url);
-                        $('#tf-bottom-buttons').html(file_html);
+                        if(typeof doc.fragments['formation.pdf'] !== 'undefined') {
+                            var source_file = $('#tf-bottom-buttons').html();
+                            var template_file = Handlebars.compile(source_file);
+                            var file_html = template_file(doc.fragments['formation.pdf'].value.file.url);
+                            $('#tf-bottom-buttons').html(file_html);
+                        }
 
                         var source_contact = $('#modalContact').html();
                         var template_contact = Handlebars.compile(source_contact);
