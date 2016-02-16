@@ -132,7 +132,7 @@
 
                         // If there is no documents for this id
                         if(!doc) {
-                            document.location = 'notfound.html';
+                            document.location = '404.html';
                         }
 
                         // If the slug doesn't match
@@ -141,7 +141,7 @@
                             if(doc.slugs.indexOf(slug) > -1) {
                                 document.location = 'detail.html?id=' + doc.id + '&slug=' + doc.slug + '&ref=' + ref;
                             } else {
-                                document.location = 'notfound.html';
+                                document.location = '404.html';
                             }
                         }
 
