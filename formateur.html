@@ -217,6 +217,10 @@
             </div>
         </div>
 
+        <footer>
+            {{> footer }}
+        </footer>
+
         <script src="//static.cdn.prismic.io/prismic.js"></script>
 
         <!-- Logic -->
@@ -294,8 +298,12 @@
                 });
 
             });
+
             var header_html = Handlebars.partials['header']();
             $('header').html(header_html);
+
+            var footer_html = Handlebars.partials['footer']();
+            $('footer').html(footer_html);
         </script>
 
     </body>

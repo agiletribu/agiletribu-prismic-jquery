@@ -18,6 +18,12 @@
         "placeholder" : "Courte présentation de la formation..."
       }
     },
+    "background" : {
+      "type" : "Image",
+      "config" : {
+        "placeholder" : "Image d'arrière-plan"
+      }
+    },
     "objectifs" : {
       "type" : "StructuredText",
       "config" : {
@@ -48,7 +54,10 @@
             }
           },
           "image" : {
-            "type" : "Image"
+            "type" : "Image",
+            "config" : {
+              "placeholder" : "Photo du formateur"
+            }
           },
           "link" : {
             "type" : "Link",
