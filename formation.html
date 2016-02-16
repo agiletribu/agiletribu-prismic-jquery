@@ -259,7 +259,8 @@
                             ctx: ctx
                         });
 
-                        console.log(doc);
+                        document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
+
                         var source_head = $(".overlay-formateur").html();
                         var template_head = Handlebars.compile(source_head);
                         var head_html = template_head(doc.fragments);
@@ -269,6 +270,15 @@
                         var template_home = Handlebars.compile(source_home);
                         var home_html = template_home(doc.fragments);
                         $('#tf-xp-home').html(home_html);
+
+                        if (typeof doc.fragments['formation.background'] !== 'undefined') {
+                            $("#tf-home").css('background', 'url("' +
+                                doc.fragments['formation.background'].value.main.url + '")');
+                            $("#tf-home").css('background-size', 'cover');
+                            $("#tf-home").css('background-position', 'center');
+                            $("#tf-home").css('background-attachment', 'fixed');
+                            $("#tf-home").css('background-repeat', 'no-repeat');
+                        }
 
                         var source_formations = $('#collapseProchainesFormations').html();
                         var template_formations = Handlebars.compile(source_formations);
