@@ -1,7 +1,8 @@
 var Configuration = {
 
   // -- API endpoint
-  apiEndpoint: 'https://axeleroy.prismic.io/api',
+  //apiEndpoint: 'https://axeleroy.prismic.io/api',
+  apiEndpoint: 'https://agiletribu.prismic.io/api',
   //accessToken: '',
 
   // -- OAuth
