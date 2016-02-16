@@ -28,6 +28,7 @@ body {
 h1 {
     font-weight: 900;
     text-transform: uppercase;
+    text-shadow: 1px 1px #cccccc;
 }
 h1 small { text-transform: lowercase }
 h2 {
@@ -1192,14 +1193,15 @@ ul.meta-tags li:last-child:after { content: ' ' }
 .photo-fix-sized {
     height: 300px;
 
-    -webkit-filter: sepia(0);
-    filter: sepia(0);
+
+    -webkit-filter: sepia(75%);
+    filter: sepia(75%);
 
     -webkit-transition: .3s ease-in-out;
     transition: .3s ease-in-out;
 }
 .photo-fix-sized:hover {
-    -webkit-filter: sepia(75%);
-    filter: sepia(75%);
+    -webkit-filter: sepia(0);
+    filter: sepia(0);
 }
 
