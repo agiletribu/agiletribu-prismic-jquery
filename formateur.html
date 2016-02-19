@@ -76,39 +76,40 @@
     ================================================== -->
         <div id="tf-home">
             <div class="overlay overlay-formateur">
-                <div class="container">
-                    <div class="content-heading">
-                        <div class="row">
-                            <div class="col-sm-4 text-center">
-                                <img src="{{[formateur.image].value.main.url}}" alt="{{[formateur.name].value.[0].text}}" class="img-responsive img-circle img-thumbnail img-formateur">
-                            </div>
+                <script id="template-formateur" type="text/x-handlebars-template">
+                    <div class="container">
+                        <div class="content-heading">
+                            <div class="row">
+                                <div class="col-sm-4 text-center">
+                                    <img src="{{[formateur.image].value.main.url}}" alt="{{[formateur.name].value.[0].text}}" class="img-responsive img-circle img-thumbnail img-formateur">
+                                </div>
 
-                            <div class="col-sm-8">
-                                <h1>{{[formateur.name].value}}</h1>
-                                <blockquote>
-                                    {{#each [formateur.bio].value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
-                                </blockquote>
+                                <div class="col-sm-8">
+                                    <h1>{{[formateur.name].value}}</h1>
+                                    <blockquote>
+                                        {{#each [formateur.bio].value}}
+                                            <p>{{this.text}}</p>
+                                        {{/each}}
+                                    </blockquote>
 
-                                {{#if [formateur.linkedin]}}
-                                <a href="{{[formateur.linkedin].value.url}}"><i class="fa fa-2x fa-linkedin"></i></a>
-                                {{/if}}
+                                    {{#if [formateur.linkedin]}}
+                                    <a href="{{[formateur.linkedin].value.url}}"><i class="fa fa-2x fa-linkedin"></i></a>
+                                    {{/if}}
 
-                                {{#if [formateur.twitter]}}
-                                &nbsp;
-                                <a href="{{[formateur.twitter].value.url}}"><i class="fa fa-2x fa-twitter"></i></a>
-                                {{/if}}
+                                    {{#if [formateur.twitter]}}
+                                    &nbsp;
+                                    <a href="{{[formateur.twitter].value.url}}"><i class="fa fa-2x fa-twitter"></i></a>
+                                    {{/if}}
 
-                                {{#if [formateur.slideshare]}}
-                                &nbsp;
-                                <a href="{{[formateur.slideshare].value.url}}"><i class="fa fa-2x fa-slideshare"></i></a>
-                                {{/if}}
-
+                                    {{#if [formateur.slideshare]}}
+                                    &nbsp;
+                                    <a href="{{[formateur.slideshare].value.url}}"><i class="fa fa-2x fa-slideshare"></i></a>
+                                    {{/if}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </script>
             </div>
         </div>
 
@@ -117,90 +118,100 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div id="tf-xp-terrain">
-                            <div class="section-header">
-                                <h2>Expérience de <span class="highlight">terrain</span></h2>
-                            </div>
+                            <script id="template-xp-terrain" type="text/x-handlebars-template">
+                                <div class="section-header">
+                                    <h2>Expérience de <span class="highlight">terrain</span></h2>
+                                </div>
 
-                            {{#each value}}
-                                <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
-                                <blockquote>
-                                    {{#each this.description.value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
-                                </blockquote>
+                                {{#each value}}
+                                    <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
+                                    <blockquote>
+                                        {{#each this.description.value}}
+                                            <p>{{this.text}}</p>
+                                        {{/each}}
+                                    </blockquote>
 
-                                {{#unless @last}}
-                                    <hr />
-                                {{/unless}}
-                            {{/each}}
+                                    {{#unless @last}}
+                                        <hr />
+                                    {{/unless}}
+                                {{/each}}
+                            </script>
                         </div>
 
                         <div id="tf-xp-formations">
-                            <div class="section-header">
-                                <h2>Expérience en <span class="highlight">formation</span></h2>
-                            </div>
+                            <script id="template-xp-formations" type="text/x-handlebars-template">
+                                <div class="section-header">
+                                    <h2>Expérience en <span class="highlight">formation</span></h2>
+                                </div>
 
-                            {{#each value}}
-                                <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
-                                <blockquote>
-                                    {{#each this.description.value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
-                                </blockquote>
+                                {{#each value}}
+                                    <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
+                                    <blockquote>
+                                        {{#each this.description.value}}
+                                            <p>{{this.text}}</p>
+                                        {{/each}}
+                                    </blockquote>
 
-                                {{#unless @last}}
-                                    <hr />
-                                {{/unless}}
-                            {{/each}}
+                                    {{#unless @last}}
+                                        <hr />
+                                    {{/unless}}
+                                {{/each}}
+                            </script>
                         </div>
 
                     </div>
 
                     <div class="col-md-4">
                         <div id="tf-formations-certifs">
-                            <div class="section-header">
-                                <h2><span class="highlight">Formations</span> et <span class="highlight">certifications</span> effectuées</h2>
-                            </div>
+                            <script id="template-formations-certifs" type="text/x-handlebars-template">                            
+                                <div class="section-header">
+                                    <h2><span class="highlight">Formations</span> et <span class="highlight">certifications</span> effectuées</h2>
+                                </div>
 
-                            <ul class="list-group list-group-formateur">
-                                {{#each value}}
-                                <li class="list-group-item">
-                                    {{#each this.name.value}}
-                                        {{this.text}}
+                                <ul class="list-group list-group-formateur">
+                                    {{#each value}}
+                                    <li class="list-group-item">
+                                        {{#each this.name.value}}
+                                            {{this.text}}
+                                        {{/each}}
+                                    </li>
                                     {{/each}}
-                                </li>
-                                {{/each}}
-                            </ul>
+                                </ul>
+                            </script>
                         </div>
 
                         <div id="tf-formateur-communaute">
-                            <div class="section-header">
-                                <h2><span class="highlight">Communauté</span></h2>
-                            </div>
+                            <script id="template-formateur-communaute" type="text/x-handlebars-template">
+                                <div class="section-header">
+                                    <h2><span class="highlight">Communauté</span></h2>
+                                </div>
 
-                            <div class="tf-formateur-communaute-block">
-                                {{#each value}}
-                                <p>
-                                    {{this.text}}
-                                </p>
-                                {{/each}}
-                            </div>
+                                <div class="tf-formateur-communaute-block">
+                                    {{#each value}}
+                                    <p>
+                                        {{this.text}}
+                                    </p>
+                                    {{/each}}
+                                </div>
+                            </script>
                         </div>
 
                         <div id="tf-formations-publications">
-                            <div class="section-header">
-                                <h2><span class="highlight">Publications</span></h2>
-                            </div>
+                            <script id="template-formations-publications" type="text/x-handlebars-template">                            
+                                <div class="section-header">
+                                    <h2><span class="highlight">Publications</span></h2>
+                                </div>
 
-                            <ul class="list-group list-group-formateur">
-                                {{#each value}}
-                                <li class="list-group-item">
-                                    <span class="label label-default"><i class="fa {{this.picto.value}}"></i></span>
-                                    &nbsp;
-                                    <a href="{{this.url.value.url}}">{{this.entry.value}}</a>
-                                </li>
-                                {{/each}}
-                            </ul>
+                                <ul class="list-group list-group-formateur">
+                                    {{#each value}}
+                                    <li class="list-group-item">
+                                        <span class="label label-default"><i class="fa {{this.picto.value}}"></i></span>
+                                        &nbsp;
+                                        <a href="{{this.url.value.url}}">{{this.entry.value}}</a>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -247,32 +258,32 @@
 
                         document.title = "AgileTribu - " + doc.fragments['formateur.name'].value;
 
-                        var source_head = $(".overlay-formateur").html();
+                        var source_head = $("#template-formateur").html();
                         var template_head = Handlebars.compile(source_head);
                         var head_html = template_head(doc.fragments);
                         $(".overlay-formateur").html(head_html);
 
-                        var source_terrain = $('#tf-xp-terrain').html();
+                        var source_terrain = $('#template-xp-terrain').html();
                         var template_terrain = Handlebars.compile(source_terrain);
                         var terrain_html = template_terrain(doc.fragments['formateur.experiences_terrain']);
                         $('#tf-xp-terrain').html(terrain_html);
 
-                        var source_formations = $('#tf-xp-formations').html();
+                        var source_formations = $('#template-xp-formations').html();
                         var template_formations = Handlebars.compile(source_formations);
                         var formations_html = template_formations(doc.fragments['formateur.experiences_formation']);
                         $('#tf-xp-formations').html(formations_html);
 
-                        var source_certifs = $('#tf-formations-certifs').html();
+                        var source_certifs = $('#template-formations-certifs').html();
                         var template_certifs = Handlebars.compile(source_certifs);
                         var certifs_html = template_certifs(doc.fragments['formateur.certifications']);
                         $('#tf-formations-certifs').html(certifs_html);
 
-                        var source_community = $('#tf-formateur-communaute').html();
+                        var source_community = $('#template-formateur-communaute').html();
                         var template_community = Handlebars.compile(source_community);
                         var community_html = template_community(doc.fragments['formateur.community']);
                         $('#tf-formateur-communaute').html(community_html);
 
-                        var source_publications = $('#tf-formations-publications').html();
+                        var source_publications = $('#template-formations-publications').html();
                         var template_publications = Handlebars.compile(source_publications);
                         var publications_html = template_publications(doc.fragments['formateur.publications']);
                         $('#tf-formations-publications').html(publications_html);

@@ -73,17 +73,19 @@
         </header>
 
         <div id="tf-home">
-            <div class="overlay overlay-formation">
-                <div class="container">
-                    <div class="content-heading">
-                        <h1>{{[formation.name].value}}</h1>
-                        <blockquote>{{[formation.presentation].value}}</blockquote>
+            <script id="template-header" type="text/x-handlebars-template">
+                <div class="overlay overlay-formation">
+                    <div class="container">
+                        <div class="content-heading">
+                            <h1>{{[formation.name].value}}</h1>
+                            <blockquote>{{[formation.presentation].value}}</blockquote>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a id="contactButton" data-toggle="modal" data-target="#modalContact" href="#" class="btn btn-primary tf-btn actionColor">Je réserve ma place</a>
                     </div>
                 </div>
-                <div class="text-center">
-                    <a id="contactButton" data-toggle="modal" data-target="#modalContact" href="#" class="btn btn-primary tf-btn actionColor">Je réserve ma place</a>
-                </div>
-            </div>
+            </script>
         </div>
 
         <div id="tf-prochaines-formations" class="gray-bg">
@@ -93,6 +95,7 @@
                 </div>
 
                 <div class="collapse in" id="collapseProchainesFormations">
+                    <script id="template-prochaines-formations" type="text/x-handlebars-template">
                         {{#each value}}
                             {{#if @first}}
                                 <div class="row">
@@ -111,7 +114,7 @@
                                 <br />
                             {{/if}}
                         {{/each}}
-                    </div>
+                    </script>
                 </div>
             </div>
         </div>
@@ -120,67 +123,81 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="section-header">
+                            <h2><span class="highlight">Objectif</span> de la formation</h2>
+                        </div>
+
                         <div id="tf-objectifs">
-                            <div class="section-header">
-                                <h2><span class="highlight">Objectif</span> de la formation</h2>
-                            </div>
-                            <blockquote>
-                                {{#each value}}
-                                    <p>{{this.text}}</p>
-                                {{/each}}
-                            </blockquote>
+                            <script id="template-objectifs" type="text/x-handlebars-template">                                
+                                <blockquote>
+                                    {{#each value}}
+                                        <p>{{this.text}}</p>
+                                    {{/each}}
+                                </blockquote>
+                            </script>
+                        </div>
+
+                        <div class="section-header">
+                            <h2>Moyens <span class="highlight">pédagogiques</span></h2>
                         </div>
 
                         <div id="tf-moyens">
-                            <div class="section-header">
-                                <h2>Moyens <span class="highlight">pédagogiques</span></h2>
-                            </div>
-                            <blockquote>
-                                {{#each value}}
-                                    <p>{{this.text}}</p>
-                                {{/each}}
-                            </blockquote>
+                            <script id="template-moyens" type="text/x-handlebars-template">                                                       
+                                <blockquote>
+                                    {{#each value}}
+                                        <p>{{this.text}}</p>
+                                    {{/each}}
+                                </blockquote>
+                            </script>
+                        </div>
 
+                        <div class="section-header">
+                            <h2><span class="highlight">Formateurs</span></h2>
                         </div>
 
                         <div id="tf-formateurs">
-                            <div class="section-header">
-                                <h2><span class="highlight">Formateurs</span></h2>
-                            </div>
+                            <script id="template-formateurs" type="text/x-handlebars-template">                                        
 
-                            {{#each value}}
-                                {{#if @first}}
-                                    <div class="row">
-                                {{else if_mod @index 3 0}}
-                                    <div class="row">
-                                {{/if}}
-                                <div class="col-sm-4 text-center">
-                                    <a href="formateur.html?id={{link.value.document.id}}&slug={{link.value.document.slug}}">
-                                        <img src="{{image.value.main.url}}" alt="{{name.value}}" class="img-responsive img-circle img-thumbnail photo-fix-sized">
+                                {{#each value}}
+                                    {{#if @first}}
+                                        <div class="row">
+                                    {{else if_mod @index 3 0}}
+                                        <div class="row">
+                                    {{/if}}
+                                    <div class="col-sm-4 text-center">
+                                        <a href="formateur.html?id={{link.value.document.id}}&slug={{link.value.document.slug}}">
+                                            <img src="{{image.value.main.url}}" alt="{{name.value}}" class="img-responsive img-circle img-thumbnail photo-fix-sized">
+                                            <br />
+                                            {{name.value}}
+                                        </a>
+                                    </div>
+                                    {{#if @last}}
+                                        </div>
                                         <br />
-                                        {{name.value}}
-                                    </a>
-                                </div>
-                                {{#if @last}}
-                                    </div>
-                                    <br />
-                                {{else if_mod @index 3 2}}
-                                    </div>
-                                    <br />
-                                {{/if}}
-                            {{/each}}
+                                    {{else if_mod @index 3 2}}
+                                        </div>
+                                        <br />
+                                    {{/if}}
+                                {{/each}}
+                            </script>
+                        </div>
+
+                        
+                        <div class="section-header">
+                            <h2>Informations <span class="highlight">pratiques</span></h2>
                         </div>
 
                         <div id="tf-pratique">
-                            <div class="section-header">
-                                <h2>Informations <span class="highlight">pratiques</span></h2>
-                            </div>
+                            <script id="template-pratique" type="text/x-handlebars-template">                        
 
-                            <blockquote>
-                                {{#each value}}
-                                    <p>{{this.text}}</p>
-                                {{/each}}
-                            </blockquote>
+                                
+
+                                <blockquote>
+                                    {{#each value}}
+                                        <p>{{this.text}}</p>
+                                    {{/each}}
+                                </blockquote>
+                            </script>
                         </div>
 
                         <div class="text-center" id="tf-bottom-buttons">
@@ -252,7 +269,7 @@
 
                         document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
 
-                        var source_head = $("#tf-home").html();
+                        var source_head = $("#template-header").html();
                         var template_head = Handlebars.compile(source_head);
                         var head_html = template_head(doc.fragments);
                         $("#tf-home").html(head_html);
@@ -271,27 +288,27 @@
                             $("#tf-home").css('background-repeat', 'no-repeat');
                         }
 
-                        var source_formations = $('#collapseProchainesFormations').html();
+                        var source_formations = $('#template-prochaines-formations').html();
                         var template_formations = Handlebars.compile(source_formations);
                         var formations_html = template_formations(doc.fragments['formation.prochaines_formations']);
                         $('#collapseProchainesFormations').html(formations_html);
 
-                        var source_objectifs = $('#tf-objectifs').html();
+                        var source_objectifs = $('#template-objectifs').html();
                         var template_objectifs = Handlebars.compile(source_objectifs);
                         var objectifs_html = template_objectifs(doc.fragments['formation.objectifs']);
                         $('#tf-objectifs').html(objectifs_html);
 
-                        var source_moyens = $('#tf-moyens').html();
+                        var source_moyens = $('#template-moyens').html();
                         var template_moyens = Handlebars.compile(source_moyens);
                         var moyens_html = template_moyens(doc.fragments['formation.moyens']);
                         $('#tf-moyens').html(moyens_html);
 
-                        var source_formateurs = $('#tf-formateurs').html();
+                        var source_formateurs = $('#template-formateurs').html();
                         var template_formateurs = Handlebars.compile(source_formateurs);
                         var formateurs_html = template_formateurs(doc.fragments['formation.formateurs']);
                         $('#tf-formateurs').html(formateurs_html);
 
-                        var source_pratique = $('#tf-pratique').html();
+                        var source_pratique = $('#template-pratique').html();
                         var template_pratique = Handlebars.compile(source_pratique);
                         var pratique_html = template_pratique(doc.fragments['formation.infos']);
                         $('#tf-pratique').html(pratique_html);

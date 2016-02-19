@@ -229,46 +229,6 @@ a.goto-btn:hover {
 .carousel-fade .carousel-inner .next.left,
 .carousel-fade .carousel-inner .prev.right { opacity: 1 }
 .carousel-fade .carousel-control { z-index: 2 }
-/* Home Section Style 4 - App Header Style*/
-#tf-home.app .overlay { padding: 10% 0 5% 0 }
-#tf-home.app {background: url(../img/bg/02.jpg);}
-a.goto-btn { margin-right: 30px }
-.ipad-wrapper .app-wrap {
-    position: relative;
-    width: 395px;
-}
-.app-wrap {
-    position: absolute;
-    background: url(../img/header4.png);
-    width: 395px;
-    height: 540px;
-    background-repeat: no-repeat;
-    z-index: 2;
-    left: 5%;
-}
-#owl-demo .item img {
-    position: relative;
-    width: 305px;
-    height: auto;
-    left: 12%;
-    margin-top: 46px;
-    z-index: -1;
-}
-.app .content-heading.text-left { padding: 15% 0 }
-#tf-home.app .owl-theme .owl-controls .owl-page span {
-    width: 15px;
-    height: 15px;
-    margin: 5px;
-    background: #ffffff !important;
-    border: 2px solid transparent;
-    opacity: 1;
-}
-#tf-home.app .owl-theme .owl-controls {
-    margin-top: 60px;
-    text-align: center;
-}
-#tf-home.app .owl-theme .owl-controls .owl-page.active span,
-#tf-home.app .owl-theme .owl-controls.clickable .owl-page:hover span { border: 2px solid #308b86 }
 
 /* Home Parallax Effect */
 .bcg {
