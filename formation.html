@@ -64,7 +64,6 @@
         <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
-        <script src="js/prismic-templates.js"></script>
         <script src="js/handlebars-templates.js"></script>
         <script src="js/handlebars-helpers.js"></script>
     </head>
@@ -221,7 +220,6 @@
         <script src="//static.cdn.prismic.io/prismic.js"></script>
 
         <!-- Logic -->
-
         <script type="text/javascript">
             $(function() {
 
@@ -251,12 +249,6 @@
                                 document.location = '404.html';
                             }
                         }
-
-                        // Feed the templates
-                        $('header, article, aside, footer').render({
-                            doc: doc,
-                            ctx: ctx
-                        });
 
                         document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
 

@@ -64,7 +64,6 @@
         <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
-        <script src="js/prismic-templates.js"></script>
         <script src="js/handlebars-templates.js"></script>
         <script src="js/handlebars-helpers.js"></script>
 
@@ -151,22 +150,6 @@
                     ctx.api.form("everything").set('page', parseInt(window.location.hash.substring(1)) || 1 ).ref(ctx.ref).submit(function(err, docs) {
 
                         if (err) { Configuration.onPrismicError(err); return; }
-
-                        // Feed the templates
-                        $('header, form, #title, #subtitle, #list, #pagination, footer, #experiment').render(
-                            {
-                                docs: docs,
-                                ctx: ctx,
-                                closeScript: '</sc' + 'ript>'
-                            },
-                            // Useful for pagination: refresh on some links even when only anchor changed
-                            function() {
-                                $('[data-forcereload=true]').click(function(e){
-                                    window.location = $(this).attr('href');
-                                    window.location.reload();
-                                });
-                            }
-                        );
 
                         var formations = $("#formations-template").html();
                         var formation_template = Handlebars.compile(formations);
