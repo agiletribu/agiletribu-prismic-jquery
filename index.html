@@ -73,9 +73,10 @@
         <script src="js/prismic-templates.js"></script>
         <script src="js/handlebars-templates.js"></script>
         <script src="js/handlebars-helpers.js"></script>
+
     </head>
     <body>
-        <header>
+        <header id="header">
             {{> header }}
         </header>
 
@@ -94,18 +95,20 @@
                         <div class="section-header">
                             <h2><span class="highlight">Formations</span></h2>
                         </div>
-                        <div class="text-center">
-                            {{#each results}}
-                                {{#if_eq type "formation"}}
-                                    <a href="formation.html?id={{id}}&slug={{slug}}">
-                                        <h4>{{fragments.[formation.name].value}}</h4>
-                                        <p>{{fragments.[formation.presentation].value}}</p>
-                                    </a>
-                                    {{#unless @last}}
-                                        <hr />
-                                    {{/unless}}
-                                {{/if_eq}}
-                            {{/each}}
+                        <div class="text-center" id="listFormations">                        
+                            <script id="formations-template" type="text/x-handlebars-template">
+                                {{#each results}}
+                                    {{#if_eq type "formation"}}
+                                        <a href="formation.html?id={{id}}&slug={{slug}}">
+                                            <h4>{{fragments.[formation.name].value}}</h4>
+                                            <p>{{fragments.[formation.presentation].value}}</p>
+                                        </a>
+                                        {{#unless @last}}
+                                            <hr />
+                                        {{/unless}}
+                                    {{/if_eq}}
+                                {{/each}}
+                            </script>
                         </div>
                     </div>
 
@@ -113,23 +116,25 @@
                         <div class="section-header">
                             <h2><span class="highlight">Formateurs</span></h2>
                         </div>
-                        <div class="text-center">
-                            {{#each results}}
-                                {{#if_eq type "formateur"}}
-                                    <a href="formateur.html?id={{id}}&slug={{slug}}">
-                                        <h4 class="">
-                                            <img src="{{fragments.[formateur.image].value.main.url}}"
-                                                 class="img-responsive img-circle img-thumbnail photo-fix-sized"
-                                                 style="max-width:65px; height:auto"/>
-                                            &nbsp;&nbsp;
-                                            {{fragments.[formateur.name].value}}
-                                        </h4>
-                                    </a>
-                                    {{#unless @last}}
-                                    <hr />
-                                    {{/unless}}
-                                {{/if_eq}}
-                            {{/each}}
+                        <div class="text-center"  id="listFormateurs">
+                            <script id="formateurs-template" type="text/x-handlebars-template">
+                                {{#each results}}
+                                    {{#if_eq type "formateur"}}
+                                        <a href="formateur.html?id={{id}}&slug={{slug}}">
+                                            <h4 class="">
+                                                <img src="{{fragments.[formateur.image].value.main.url}}"
+                                                     class="img-responsive img-circle img-thumbnail photo-fix-sized"
+                                                     style="max-width:65px; height:auto"/>
+                                                &nbsp;&nbsp;
+                                                {{fragments.[formateur.name].value}}
+                                            </h4>
+                                        </a>
+                                        {{#unless @last}}
+                                        <hr />
+                                        {{/unless}}
+                                    {{/if_eq}}
+                                {{/each}}
+                            </script>
                         </div>
                     </div>
                     </div>
@@ -154,7 +159,7 @@
                         if (err) { Configuration.onPrismicError(err); return; }
 
                         // Feed the templates
-                        $('header, form, #title, #subtitle, #list, #pagination, footer, #experiment, #entry-template').render(
+                        $('header, form, #title, #subtitle, #list, #pagination, footer, #experiment').render(
                             {
                                 docs: docs,
                                 ctx: ctx,
@@ -169,10 +174,13 @@
                             }
                         );
 
-                        var source   = $("#tf-content").html();
-                        var template = Handlebars.compile(source);
-                        var html = template(docs);
-                        $("#tf-content").html(html);
+                        var formations = $("#formations-template").html();
+                        var formation_template = Handlebars.compile(formations);
+                        $("#listFormations").html(formation_template(docs))
+
+                        var formateurs = $("#formateurs-template").html();
+                        var formateur_template = Handlebars.compile(formateurs);
+                        $("#listFormateurs").html(formateur_template(docs))
                     });
                 });
 
