@@ -91,16 +91,6 @@
         </header>
 
         <div id="tf-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <center>
-                            <img src="img/at/agile_tribu_logo.png" class="intro-logo img-responsive" alt="free-template">
-                        </center>
-                    </div>
-                </div>
-            </div>
-
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			  <!-- Indicators -->
 			  <ol class="carousel-indicators">
@@ -112,13 +102,33 @@
 			  <!-- Wrapper for slides -->
 			  <div class="carousel-inner" role="listbox">
 			    <div class="item active">
-			      <img src="img/exemples/IMG_4908.JPG" alt="lego">
+			        <img src="img/exemples/lego_arches.JPG" alt="lego">
+                    <div class="carousel-caption">
+                        <div class="content-heading text-center">
+                            <h1>Vous aidez à monter au niveau suivant</h1>
+                            <p class="lead">Nous sommes là pour prendre en compte l'étape dans laquelle vous vous trouver et vous aidez à continuer à progresser !</p>
+                        </div>
+                    </div>
 			    </div>
+
 			    <div class="item">
-			      <img src="img/exemples/IMG_4898.JPG" alt="lego">
+			      <img src="img/exemples/lego_NOT.jpg" alt="lego">
+                  <div class="carousel-caption">
+                        <div class="content-heading text-center">
+                            <h1>Des formateurs qui ne sont pas là pour étaler leur science</h1>
+                            <p class="lead">Suivre une formation ce n'est pas passer quelques jours assis à écouter un formateur brillant dérouler son savoir.</p>
+                        </div>
+                    </div>
 			    </div>
+
 			    <div class="item">
-			      <img src="img/exemples/IMG_4900.JPG" alt="lego">
+			      <img src="img/exemples/lego_activite.jpg" alt="lego">
+                  <div class="carousel-caption">
+                        <div class="content-heading text-center">
+                            <h1>Vous laisser expérimenter dans un cadre sécurisé</h1>
+                            <p class="lead">Les formateurs sont là pour vous donner des clés et vous faire vivre une expérience dans un cadre sécurisé.</p>
+                        </div>
+                    </div>
 			    </div>
 			  </div>
 
@@ -133,11 +143,73 @@
 			  </a>
 			</div>
 
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <center>
+                            <img src="img/at/agile_tribu_logo.png" class="intro-logo img-responsive" alt="free-template">
+                        </center>
+                    </div>
+                </div>
+            </div>
+
 			<div class="container">
+                <div class="row">
+                  <div class="col-sm-12">
+                        <div class="section-header">
+                            <h2><span class="highlight">Pourquoi</span> des formations AgileTribu ?</h2>
+                        </div>
+
+                        <blockquote>
+                            <ul>
+                                <li>Notre objectif n'est pas seulement de former, mais avant tout de vous <span class="highlight">aider</span> à progresser et vous aider à régler les problèmes que vous rencontrez.</li>
+                                <li>Notre promesse est une <span class="highlight">recontre de qualité</span> avec des personnes bonnes à la fois dans leurs <span class="highlight">domaines</span> (savoir faire) ainsi que dans leur <span class="highlight">capacité d'écoute</span> et de <span class="highlight">facilitation</span>.</li>
+                                <li>Notre vision : la formation n'est qu'un <span class="highlight">début</span> et nous sommmes là pour également vous accompagner dans la mise en place en vous fournissant les outils et le réseau qui vous sera nécessaire pour réussir.</li>
+                            </ul>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                        <div class="section-header">
+                            <h2>Des <span class="highlight">Formateurs</span></h2>
+                        </div>
+                        <div class="text-center"  id="listFormateurs">
+                            <script id="formateurs-template" type="text/x-handlebars-template">
+                                {{#each results}}
+                                    {{#if_eq type "formateur"}}
+
+                                        {{#if @first}}
+                                            <div class="row">
+                                        {{else if_mod @index 3 0}}
+                                            <div class="row">
+                                        {{/if}}
+                                        <div class="col-sm-4 text-center">
+                                            <a href="formateur.html?id={{id}}&slug={{slug}}">
+                                                <img src="{{fragments.[formateur.image].value.main.url}}" alt="{{name.value}}" class="img-responsive img-circle img-thumbnail photo-fix-sized">
+                                                <br />
+                                                {{fragments.[formateur.name].value}}
+                                            </a>
+                                        </div>
+                                        {{#if @last}}
+                                            </div>
+                                            <br />
+                                        {{else if_mod @index 3 2}}
+                                            </div>
+                                            <br />
+                                        {{/if}}
+                                    {{/if_eq}}
+                                {{/each}}
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
 	            <div class="row">
-	                <div class="col-sm-6">
+	                <div class="col-sm-12">
 	                    <div class="section-header">
-	                        <h2><span class="highlight">Formations</span></h2>
+	                        <h2>Ainsi que des <span class="highlight">formations</span></h2>
 	                    </div>
 	                    <div class="text-center" id="listFormations">                        
 	                        <script id="formations-template" type="text/x-handlebars-template">
@@ -155,34 +227,7 @@
 	                        </script>
 	                    </div>
 	                </div>
-
-                
-                    <div class="col-sm-6">
-                        <div class="section-header">
-                            <h2><span class="highlight">Formateurs</span></h2>
-                        </div>
-                        <div class="text-center"  id="listFormateurs">
-                            <script id="formateurs-template" type="text/x-handlebars-template">
-                                {{#each results}}
-                                    {{#if_eq type "formateur"}}
-                                        <a href="formateur.html?id={{id}}&slug={{slug}}">
-                                            <h4 class="">
-                                                <img src="{{fragments.[formateur.image].value.main.url}}"
-                                                     class="img-responsive img-circle img-thumbnail photo-fix-sized"
-                                                     style="max-width:65px; height:auto"/>
-                                                &nbsp;&nbsp;
-                                                {{fragments.[formateur.name].value}}
-                                            </h4>
-                                        </a>
-                                        {{#unless @last}}
-                                        <hr />
-                                        {{/unless}}
-                                    {{/if_eq}}
-                                {{/each}}
-                            </script>
-                        </div>
-                    </div>
-                    </div>
+                </div>
             </div>
         </div>
 
@@ -190,7 +235,7 @@
             {{> footer}}
         </footer>
 
-        <script src="//static.cdn.prismic.io/prismic.js"></script>
+        <script src="http://static.cdn.prismic.io/prismic.js"></script>
 
         <!-- Controller (logic) -->
 
