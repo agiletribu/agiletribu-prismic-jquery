@@ -136,7 +136,10 @@ a:focus {
 }
 
 #tf-home h1 { color: #308b86 }
-.content-heading p.lead { margin-bottom: 80px }
+.content-heading p.lead { 
+    margin-bottom: 80px;
+    font-weight: bold;
+}
 a.goto-btn {
     font-size: 18px;
     font-weight: 700;
