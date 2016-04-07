@@ -169,5 +169,35 @@
         }
       }
     }
+  },
+  "Formations" : {
+    "formations" : {
+      "type" : "Group",
+      "fieldset" : "Formations",
+      "config" : {
+        "fields" : {
+          "name" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Nom de la formation"
+            }
+          },
+          "link" : {
+            "type" : "Link",
+            "config" : {
+              "select" : "document",
+              "customtypes" : [ "formation" ],
+              "placeholder" : "Lien vers la fiche formation"
+            }
+          },
+          "date" : {
+            "type" : "Text",
+            "config" : {
+              "placeholder" : "Prochaines dates de formation"
+            }
+          }
+        }
+      }
+    }
   }
 }
