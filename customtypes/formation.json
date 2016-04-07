@@ -70,14 +70,6 @@
         }
       }
     },
-    "contact" : {
-      "type" : "Link",
-      "fieldset" : "Lien vers le formulaire de contact",
-      "config" : {
-        "select" : "web",
-        "placeholder" : "https://johndoe.wufoo.com/forms/..."
-      }
-    },
     "pdf" : {
       "type" : "Link",
       "fieldset" : "Détails de la formation (PDF)",

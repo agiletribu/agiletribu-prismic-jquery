@@ -220,11 +220,51 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Contact</h4>
+                        <h4 class="modal-title" id="myModalLabel">Contactez-nous à propos de cette formation</h4>
                     </div>
 
                     <div class="modal-body">
-                        <iframe src="{{this}}" height="1000" style="zoom:0.60" width="99.6%" frameborder="0"></iframe>
+                        <form action="https://getsimpleform.com/messages?form_api_token=a9d01d35b6ba193737c21ad0322499ad" method="post">
+                            <input type="hidden" name="formation">
+
+                            <div class="form-group">
+                                <label for="name">Nom</label>
+                                <input type="text" name="name" class="form-control" placeholder"Nom" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Adresse e-mail</label>
+                                <input type="email" name="email" class="form-control" placeholder"Adresse e-mail" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Numéro de téléphone</label>
+                                <input type="tel" name="email" class="form-control" placeholder"Numéro de téléphone" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Vous souhaitez</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="souhait" value="reserver">
+                                        Réserver votre place
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="souhait" value="informations">
+                                        Obtenir des informations sur cette formation
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="more">Un commentaire ?</label>
+                                <textarea class="form-control" rows="3" name="content"></textarea>
+                            </div>
+
+                            <input type="submit" class="btn btn-default" value="Envoyer" />
+                        </form>
                     </div>
                 </div>
             </div>
@@ -268,6 +308,8 @@
                         }
 
                         document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
+
+                        $("input[name='formation'").val(doc.fragments['formation.name'].value);
 
                         var source_head = $("#template-header").html();
                         var template_head = Handlebars.compile(source_head);
@@ -319,12 +361,6 @@
                             var file_html = template_file(doc.fragments['formation.pdf'].value.file.url);
                             $('#tf-bottom-buttons').html(file_html);
                         }
-
-                        var source_contact = $('#modalContact').html();
-                        var template_contact = Handlebars.compile(source_contact);
-                        var contact_html = template_contact(doc.fragments['formation.contact'].value.url);
-                        $('#modalContact').html(contact_html);
-
                     });
 
                 });
