@@ -8,10 +8,30 @@ $(function() {
         submitSuccess: function($form, event) {
             event.preventDefault(); // prevent default submit behaviour
             // get values from FORM
-            var name = $("input#name").val();
-            var email = $("input#email").val();
-            var message = $("textarea#message").val();
+            var formation = $("input[name=formation]").val();
+            var name = $("input[name=name]").val();
+            var email = $("input[name=email]").val();
+            var telephone = $("input[name=telephone]").val();
+            var souhait = $("input[name=souhait]:checked").val();
+            var content = $("textarea[name=content]").val();
             var firstName = name; // For Success/Failure Message
+
+            // Construction du message
+            var message = "Bonjour,<br /><br />" + name + " (" + email + ") vous a contacté via le formulaire de formation.agiletribu.com afin ";
+
+            if (souhait == "informations" ) {
+                message += "d'obtenir des informations sur ";
+            } else message += "de réserver une place pour";
+
+            message += " la formation " + formation + ".<br />";
+
+            if (content) {
+                message += "<br />" + firstName + " a ajouté le commentaire suivant :<br />" + content + "<br />";
+            };
+            if (telephone) {
+                message += "<br />" + firstName + " a indiqué son numéro de téléphone : " + telephone + "<br />";
+            };
+            
             // Check for white space in name for Success/Fail message
             if (firstName.indexOf(' ') >= 0) {
                 firstName = name.split(' ').slice(0, -1).join(' ');
@@ -23,7 +43,7 @@ $(function() {
                 data: {
                     from: email,
                     to: "contact@agiletribu.com",
-                    subject: "Contact avec AgileTribu de "+name,
+                    subject: "Contact avec AgileTribu de "+name+" concernant la formation "+formation,
                     message: message
                 },
                 cache: false,
