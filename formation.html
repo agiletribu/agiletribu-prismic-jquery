@@ -61,7 +61,7 @@
 
         <script src="js/vendor/handlebars.js"></script>
         <script src="js/vendor/lodash.core.js"></script>
-        <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
+        <script src="js/vendor/prismic.io.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/handlebars-templates.js"></script>
@@ -130,9 +130,7 @@
                         <div id="tf-objectifs">
                             <script id="template-objectifs" type="text/x-handlebars-template">                                
                                 <blockquote>
-                                    {{#each value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
+                                    {{this}}
                                 </blockquote>
                             </script>
                         </div>
@@ -144,9 +142,7 @@
                         <div id="tf-moyens">
                             <script id="template-moyens" type="text/x-handlebars-template">                                                       
                                 <blockquote>
-                                    {{#each value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
+                                    {{this}}
                                 </blockquote>
                             </script>
                         </div>
@@ -189,13 +185,8 @@
 
                         <div id="tf-pratique">
                             <script id="template-pratique" type="text/x-handlebars-template">                        
-
-                                
-
                                 <blockquote>
-                                    {{#each value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
+                                    {{this}}
                                 </blockquote>
                             </script>
                         </div>
@@ -341,27 +332,27 @@
 
                         var source_formations = $('#template-prochaines-formations').html();
                         var template_formations = Handlebars.compile(source_formations);
-                        var formations_html = template_formations(doc.fragments['formation.prochaines_formations']);
+                        var formations_html = template_formations(doc.data['formation.prochaines_formations']);
                         $('#collapseProchainesFormations').html(formations_html);
 
                         var source_objectifs = $('#template-objectifs').html();
-                        var template_objectifs = Handlebars.compile(source_objectifs);
-                        var objectifs_html = template_objectifs(doc.fragments['formation.objectifs']);
+                        var template_objectifs = Handlebars.compile(source_objectifs, {'noEscape' : true});
+                        var objectifs_html = template_objectifs(doc.getStructuredText('formation.objectifs').asHtml());
                         $('#tf-objectifs').html(objectifs_html);
 
                         var source_moyens = $('#template-moyens').html();
-                        var template_moyens = Handlebars.compile(source_moyens);
-                        var moyens_html = template_moyens(doc.fragments['formation.moyens']);
+                        var template_moyens = Handlebars.compile(source_moyens, {'noEscape' : true});
+                        var moyens_html = template_moyens(doc.getStructuredText('formation.moyens').asHtml());
                         $('#tf-moyens').html(moyens_html);
 
                         var source_formateurs = $('#template-formateurs').html();
                         var template_formateurs = Handlebars.compile(source_formateurs);
-                        var formateurs_html = template_formateurs(doc.fragments['formation.formateurs']);
+                        var formateurs_html = template_formateurs(doc.data['formation.formateurs']);
                         $('#tf-formateurs').html(formateurs_html);
 
                         var source_pratique = $('#template-pratique').html();
-                        var template_pratique = Handlebars.compile(source_pratique);
-                        var pratique_html = template_pratique(doc.fragments['formation.infos']);
+                        var template_pratique = Handlebars.compile(source_pratique, {'noEscape' : true});
+                        var pratique_html = template_pratique(doc.getStructuredText('formation.infos').asHtml());
                         $('#tf-pratique').html(pratique_html);
 
                         if(typeof doc.fragments['formation.pdf'] !== 'undefined') {
