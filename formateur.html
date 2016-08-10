@@ -61,7 +61,7 @@
 
         <script src="js/vendor/handlebars.js"></script>
         <script src="js/vendor/lodash.core.js"></script>
-        <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
+        <script src="js/vendor/prismic.io.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/handlebars-templates.js"></script>
@@ -81,29 +81,27 @@
                         <div class="content-heading">
                             <div class="row">
                                 <div class="col-sm-4 text-center">
-                                    <img src="{{[formateur.image].value.main.url}}" alt="{{[formateur.name].value.[0].text}}" class="img-responsive img-circle img-thumbnail img-formateur">
+                                    <img src="{{image}}" alt="{{name}}" class="img-responsive img-circle img-thumbnail img-formateur">
                                 </div>
 
                                 <div class="col-sm-8">
-                                    <h1>{{[formateur.name].value}}</h1>
+                                    <h1>{{name}}</h1>
                                     <blockquote>
-                                        {{#each [formateur.bio].value}}
-                                            <p>{{this.text}}</p>
-                                        {{/each}}
+                                        {{bio}}
                                     </blockquote>
 
-                                    {{#if [formateur.linkedin]}}
-                                    <a href="{{[formateur.linkedin].value.url}}"><i class="fa fa-2x fa-linkedin"></i></a>
+                                    {{#if linkedin}}
+                                    <a href="linked}}"><i class="fa fa-2x fa-linkedin"></i></a>
                                     {{/if}}
 
-                                    {{#if [formateur.twitter]}}
+                                    {{#if twitter}}
                                     &nbsp;
-                                    <a href="{{[formateur.twitter].value.url}}"><i class="fa fa-2x fa-twitter"></i></a>
+                                    <a href="{{twitter}}"><i class="fa fa-2x fa-twitter"></i></a>
                                     {{/if}}
 
-                                    {{#if [formateur.slideshare]}}
+                                    {{#if slideshare}}
                                     &nbsp;
-                                    <a href="{{[formateur.slideshare].value.url}}"><i class="fa fa-2x fa-slideshare"></i></a>
+                                    <a href="{{slideshare}}"><i class="fa fa-2x fa-slideshare"></i></a>
                                     {{/if}}
                                 </div>
                             </div>
@@ -167,12 +165,10 @@
                                     <h2>Expérience de <span class="highlight">terrain</span></h2>
                                 </div>
 
-                                {{#each value}}
-                                    <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
+                                {{#each}}
+                                    <h3><span class="label label-default"><i class="fa {{picto}}"></i>&nbsp;&nbsp;{{periode}}</span> &nbsp;&nbsp; {{name}} </h3>
                                     <blockquote>
-                                        {{#each this.description.value}}
-                                            <p>{{this.text}}</p>
-                                        {{/each}}
+                                        {{description}}
                                     </blockquote>
 
                                     {{#unless @last}}
@@ -300,14 +296,23 @@
                             }
                         }
 
-                        console.log(doc);
-
                         document.title = "AgileTribu - " + doc.fragments['formateur.name'].value;
 
-                            var source_head = $("#template-formateur").html();
-                            var template_head = Handlebars.compile(source_head);
-                            var head_html = template_head(doc.fragments);
-                            $(".overlay-formateur").html(head_html);
+                        var formateur = new Object();
+                        formateur.name = doc.fragments['formateur.name'].value;
+                        formateur.image = doc.fragments['formateur.image'].value.main.url;
+                        if (typeof doc.fragments['formateur.twitter'] !== 'undefined')
+                            formateur.twitter = doc.fragments['formateur.twitter'].value.url;
+                        if (typeof doc.fragments['formateur.linkedin'] !== 'undefined')
+                            formateur.linkedin = doc.fragments['formateur.linkedin'].value.url;
+                        if (typeof doc.fragments['formateur.slideshare'] !== 'undefined')    
+                            formateur.slideshare = doc.fragments['formateur.slideshare'].value.url;
+                        formateur.bio = doc.getStructuredText('formateur.bio').asHtml();
+
+                        var source_head = $("#template-formateur").html();
+                        var template_head = Handlebars.compile(source_head, {'noEscape':true});
+                        var head_html = template_head(formateur);
+                        $(".overlay-formateur").html(head_html);
  
                         if (typeof doc.fragments['formateur.formations']  !== 'undefined') {
                             var source_mes_formations = $('#template-mes-formations').html();
@@ -318,10 +323,37 @@
                             $('#tf-mes-formations').hide();
                         }
 
+                        /* TODO:
+                        // Création du tableau qui contiendra les expériences
+                        var terrains = [];
+                        
+                        // Récupération des expériences
+                        exp_terr = doc.fragments['formateur.experiences_terrain'].value;
+
+                        // Parcours des expériences
+                        for  (var i = 0; i < exp_terr.length; i++)  {
+                            console.log(exp_terr[i]);
+
+                            // Création d'un objet contenant les expériences
+                            var experience = new Object();
+
+                            experience.periode = exp_terr[i].periode.value;
+                            experience.name = exp_terr[i].name.value;
+                            experience.picto = exp_terr[i].picto.value;
+
+                            // Parsing HTML
+                            experience.description = doc.getStructuredText('formateur.experiences_terrain.0.description').asHtml();
+                            
+                            // Ajout de l'expérience au tableau
+                            terrains.push(experience);
+                        };
+                        console.log(terrains);
+
                         var source_terrain = $('#template-xp-terrain').html();
-                        var template_terrain = Handlebars.compile(source_terrain);
-                        var terrain_html = template_terrain(doc.fragments['formateur.experiences_terrain']);
+                        var template_terrain = Handlebars.compile(source_terrain, {'noEscape':true});
+                        var terrain_html = template_terrain(terrains);
                         $('#tf-xp-terrain').html(terrain_html);
+                        */
 
                         var source_formations = $('#template-xp-formations').html();
                         var template_formations = Handlebars.compile(source_formations);
