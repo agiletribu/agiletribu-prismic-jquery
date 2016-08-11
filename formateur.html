@@ -165,7 +165,7 @@
                                     <h2>Expérience de <span class="highlight">terrain</span></h2>
                                 </div>
 
-                                {{#each}}
+                                {{#each this}}
                                     <h3><span class="label label-default"><i class="fa {{picto}}"></i>&nbsp;&nbsp;{{periode}}</span> &nbsp;&nbsp; {{name}} </h3>
                                     <blockquote>
                                         {{description}}
@@ -184,12 +184,10 @@
                                     <h2>Expérience en <span class="highlight">formation</span></h2>
                                 </div>
 
-                                {{#each value}}
-                                    <h3><span class="label label-default"><i class="fa {{this.picto.value}}"></i>&nbsp;&nbsp;{{this.periode.value}}</span> &nbsp;&nbsp; {{this.name.value}} </h3>
+                                {{#each this}}
+                                    <h3><span class="label label-default"><i class="fa {{picto}}"></i>&nbsp;&nbsp;{{periode}}</span> &nbsp;&nbsp; {{name}} </h3>
                                     <blockquote>
-                                        {{#each this.description.value}}
-                                            <p>{{this.text}}</p>
-                                        {{/each}}
+                                        {{description}}
                                     </blockquote>
 
                                     {{#unless @last}}
@@ -209,11 +207,9 @@
                                 </div>
 
                                 <ul class="list-group list-group-formateur">
-                                    {{#each value}}
+                                    {{#each this}}
                                     <li class="list-group-item">
-                                        {{#each this.name.value}}
-                                            {{this.text}}
-                                        {{/each}}
+                                        {{this}}
                                     </li>
                                     {{/each}}
                                 </ul>
@@ -227,11 +223,7 @@
                                 </div>
 
                                 <div class="tf-formateur-communaute-block">
-                                    {{#each value}}
-                                    <p>
-                                        {{this.text}}
-                                    </p>
-                                    {{/each}}
+                                    {{this}}
                                 </div>
                             </script>
                         </div>
@@ -300,7 +292,7 @@
 
                         var formateur = new Object();
                         formateur.name = doc.fragments['formateur.name'].value;
-                        formateur.image = doc.fragments['formateur.image'].value.main.url;
+                        formateur.image = doc.data['formateur.image'].value.main.url;
                         if (typeof doc.fragments['formateur.twitter'] !== 'undefined')
                             formateur.twitter = doc.fragments['formateur.twitter'].value.url;
                         if (typeof doc.fragments['formateur.linkedin'] !== 'undefined')
@@ -323,56 +315,88 @@
                             $('#tf-mes-formations').hide();
                         }
 
-                        /* TODO:
                         // Création du tableau qui contiendra les expériences
-                        var terrains = [];
+                        var exp_terrains = [];
                         
                         // Récupération des expériences
-                        exp_terr = doc.fragments['formateur.experiences_terrain'].value;
+                        exp_terr_arr = doc.getGroup('formateur.experiences_terrain').toArray();
 
                         // Parcours des expériences
-                        for  (var i = 0; i < exp_terr.length; i++)  {
-                            console.log(exp_terr[i]);
-
+                        for  (var i = 0; i < exp_terr_arr.length; i++)  {
                             // Création d'un objet contenant les expériences
                             var experience = new Object();
 
-                            experience.periode = exp_terr[i].periode.value;
-                            experience.name = exp_terr[i].name.value;
-                            experience.picto = exp_terr[i].picto.value;
+                            experience.periode = exp_terr_arr[i].data.periode.value;
+                            experience.name = exp_terr_arr[i].data.name.value;
+                            experience.picto = exp_terr_arr[i].data.picto.value;
 
                             // Parsing HTML
-                            experience.description = doc.getStructuredText('formateur.experiences_terrain.0.description').asHtml();
+                            experience.description = exp_terr_arr[i].getStructuredText('description').asHtml();
                             
                             // Ajout de l'expérience au tableau
-                            terrains.push(experience);
+                            exp_terrains.push(experience);
                         };
-                        console.log(terrains);
 
                         var source_terrain = $('#template-xp-terrain').html();
                         var template_terrain = Handlebars.compile(source_terrain, {'noEscape':true});
-                        var terrain_html = template_terrain(terrains);
+                        var terrain_html = template_terrain(exp_terrains);
                         $('#tf-xp-terrain').html(terrain_html);
-                        */
+
+                        // Création du tableau qui contiendra les expériences
+                        var exp_formations = [];
+                        
+                        // Récupération des expériences
+                        exp_form_arr = doc.getGroup('formateur.experiences_formation').toArray();
+
+                        // Parcours des expériences
+                        for  (var i = 0; i < exp_form_arr.length; i++)  {
+                            // Création d'un objet contenant les expériences
+                            var experience = new Object();
+
+                            experience.periode = exp_form_arr[i].data.periode.value;
+                            experience.name = exp_form_arr[i].data.name.value;
+                            experience.picto = exp_form_arr[i].data.picto.value;
+
+                            // Parsing HTML
+                            experience.description = exp_form_arr[i].getStructuredText('description').asHtml();
+                            
+                            // Ajout de l'expérience au tableau
+                            exp_formations.push(experience);
+                        };
 
                         var source_formations = $('#template-xp-formations').html();
-                        var template_formations = Handlebars.compile(source_formations);
-                        var formations_html = template_formations(doc.fragments['formateur.experiences_formation']);
+                        var template_formations = Handlebars.compile(source_formations, {'noEscape':true});
+                        var formations_html = template_formations(exp_formations);
                         $('#tf-xp-formations').html(formations_html);
 
+                        // Création du tableau qui contiendra les certifications
+                        var certifications = [];
+                                                
+                        // Récupération des certifications
+                        certif_arr = doc.getGroup('formateur.certifications').toArray();
+
+                        // Parcours des certifications
+                        for  (var i = 0; i < certif_arr.length; i++)  {
+                            // Création d'un objet contenant les certifications
+                            var certification = certif_arr[i].getStructuredText('name').asHtml();
+                            
+                            // Ajout de l'expérience au tableau
+                            certifications.push(certification);
+                        };
+
                         var source_certifs = $('#template-formations-certifs').html();
-                        var template_certifs = Handlebars.compile(source_certifs);
-                        var certifs_html = template_certifs(doc.fragments['formateur.certifications']);
+                        var template_certifs = Handlebars.compile(source_certifs, {'noEscape':true});
+                        var certifs_html = template_certifs(certifications);
                         $('#tf-formations-certifs').html(certifs_html);
 
                         var source_community = $('#template-formateur-communaute').html();
-                        var template_community = Handlebars.compile(source_community);
-                        var community_html = template_community(doc.fragments['formateur.community']);
+                        var template_community = Handlebars.compile(source_community, {'noEscape':true});
+                        var community_html = template_community(doc.getStructuredText('formateur.community').asHtml());
                         $('#tf-formateur-communaute').html(community_html);
 
                         var source_publications = $('#template-formations-publications').html();
                         var template_publications = Handlebars.compile(source_publications);
-                        var publications_html = template_publications(doc.fragments['formateur.publications']);
+                        var publications_html = template_publications(doc.data['formateur.publications']);
                         $('#tf-formations-publications').html(publications_html);
 
                     });
