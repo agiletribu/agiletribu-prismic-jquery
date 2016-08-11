@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AgileTribu - Formateur</title>
+        <title>AgileTribu - Formation</title>
         <meta name="description"
               content="AgileTribu est un espace communautaire, d'innovation de services pour améliorer les pratiques Agiles">
         <meta name="keywords" content="AgileTribu, communauté, Agile, Digital, Marketing">
@@ -103,7 +103,7 @@
                                 <div class="row">
                             {{/if}}
                             <div class="col-sm-4">
-                                <h4 class="text-center"><i class="fa fa fa-calendar"></i> &nbsp;&nbsp; <a href="#">{{date.value}}</a></h4>
+                                <h4 class="text-center"><i class="fa fa fa-calendar"></i> &nbsp;&nbsp; <a data-toggle="modal" data-target="#modalContact" href="#">{{date.value}}</a></h4>
                                 <p class="text-center">{{formateurs.value}} : <b><a data-toggle="modal" data-target="#modalContact" href="#">je réserve ma place !</a></b></p>
                             </div>
                             {{#if @last}}
@@ -307,33 +307,37 @@
                             }
                         }
 
-                        document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
+                        document.title = "AgileTribu - " + doc.data['formation.name'].value;
 
-                        $("input[name='formation'").val(doc.fragments['formation.name'].value);
+                        $("input[name='formation'").val(doc.data['formation.name'].value);
 
                         var source_head = $("#template-header").html();
                         var template_head = Handlebars.compile(source_head);
-                        var head_html = template_head(doc.fragments);
+                        var head_html = template_head(doc.data);
                         $("#tf-home").html(head_html);
 
                         var source_home = $('#tf-home').html();
                         var template_home = Handlebars.compile(source_home);
-                        var home_html = template_home(doc.fragments);
+                        var home_html = template_home(doc.data);
                         $('#tf-xp-home').html(home_html);
 
-                        if (typeof doc.fragments['formation.background'] !== 'undefined') {
+                        if (typeof doc.data['formation.background'] !== 'undefined') {
                             $("#tf-home").css('background', 'url("' +
-                                doc.fragments['formation.background'].value.main.url + '")');
+                                doc.data['formation.background'].value.main.url + '")');
                             $("#tf-home").css('background-size', 'cover');
                             $("#tf-home").css('background-position', 'center');
                             $("#tf-home").css('background-attachment', 'fixed');
                             $("#tf-home").css('background-repeat', 'no-repeat');
                         }
 
-                        var source_formations = $('#template-prochaines-formations').html();
-                        var template_formations = Handlebars.compile(source_formations);
-                        var formations_html = template_formations(doc.data['formation.prochaines_formations']);
-                        $('#collapseProchainesFormations').html(formations_html);
+                        if (typeof doc.data['formation.prochaines_formations'] === 'undefined') 
+                            $('#tf-prochaines-formations').hide();
+                        else {
+                            var source_formations = $('#template-prochaines-formations').html();
+                            var template_formations = Handlebars.compile(source_formations);
+                            var formations_html = template_formations(doc.data['formation.prochaines_formations']);
+                            $('#collapseProchainesFormations').html(formations_html);
+                        }
 
                         var source_objectifs = $('#template-objectifs').html();
                         var template_objectifs = Handlebars.compile(source_objectifs, {'noEscape' : true});
@@ -355,10 +359,10 @@
                         var pratique_html = template_pratique(doc.getStructuredText('formation.infos').asHtml());
                         $('#tf-pratique').html(pratique_html);
 
-                        if(typeof doc.fragments['formation.pdf'] !== 'undefined') {
+                        if(typeof doc.data['formation.pdf'] !== 'undefined') {
                             var source_file = $('#tf-bottom-buttons').html();
                             var template_file = Handlebars.compile(source_file);
-                            var file_html = template_file(doc.fragments['formation.pdf'].value.file.url);
+                            var file_html = template_file(doc.data['formation.pdf'].value.file.url);
                             $('#tf-bottom-buttons').html(file_html);
                         }
                     });
