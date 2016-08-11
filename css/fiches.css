@@ -1,10 +1,10 @@
-a {
+#tf-content a:not(.btn) {
     color: inherit;
     text-decoration: underline;
     transition: all 0.5s;
 }
-a:hover,
-a:focus {
+#tf-content a:hover:not(.btn),
+#tf-content a:focus:not(.btn) {
     text-decoration: none;
     color: #308b86;
 }
