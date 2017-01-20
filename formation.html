@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AgileTribu - Formateur</title>
+        <title>AgileTribu - Formation</title>
         <meta name="description"
               content="AgileTribu est un espace communautaire, d'innovation de services pour améliorer les pratiques Agiles">
         <meta name="keywords" content="AgileTribu, communauté, Agile, Digital, Marketing">
@@ -34,6 +34,7 @@
         <!-- Stylesheet
             ================================================== -->
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/fiches.css">
         <link rel="stylesheet" type="text/css" href="css/responsive.css">
 
         <!-- Google Fonts
@@ -61,7 +62,7 @@
 
         <script src="js/vendor/handlebars.js"></script>
         <script src="js/vendor/lodash.core.js"></script>
-        <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
+        <script src="js/vendor/prismic.io.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/handlebars-templates.js"></script>
@@ -103,7 +104,7 @@
                                 <div class="row">
                             {{/if}}
                             <div class="col-sm-4">
-                                <h4 class="text-center"><i class="fa fa fa-calendar"></i> &nbsp;&nbsp; <a href="#">{{date.value}}</a></h4>
+                                <h4 class="text-center"><i class="fa fa fa-calendar"></i> &nbsp;&nbsp; <a data-toggle="modal" data-target="#modalContact" href="#">{{date.value}}</a></h4>
                                 <p class="text-center">{{formateurs.value}} : <b><a data-toggle="modal" data-target="#modalContact" href="#">je réserve ma place !</a></b></p>
                             </div>
                             {{#if @last}}
@@ -130,9 +131,7 @@
                         <div id="tf-objectifs">
                             <script id="template-objectifs" type="text/x-handlebars-template">                                
                                 <blockquote>
-                                    {{#each value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
+                                    {{this}}
                                 </blockquote>
                             </script>
                         </div>
@@ -144,9 +143,7 @@
                         <div id="tf-moyens">
                             <script id="template-moyens" type="text/x-handlebars-template">                                                       
                                 <blockquote>
-                                    {{#each value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
+                                    {{this}}
                                 </blockquote>
                             </script>
                         </div>
@@ -189,13 +186,8 @@
 
                         <div id="tf-pratique">
                             <script id="template-pratique" type="text/x-handlebars-template">                        
-
-                                
-
                                 <blockquote>
-                                    {{#each value}}
-                                        <p>{{this.text}}</p>
-                                    {{/each}}
+                                    {{this}}
                                 </blockquote>
                             </script>
                         </div>
@@ -316,58 +308,62 @@
                             }
                         }
 
-                        document.title = "AgileTribu - " + doc.fragments['formation.name'].value;
+                        document.title = "AgileTribu - " + doc.data['formation.name'].value;
 
-                        $("input[name='formation'").val(doc.fragments['formation.name'].value);
+                        $("input[name='formation'").val(doc.data['formation.name'].value);
 
                         var source_head = $("#template-header").html();
                         var template_head = Handlebars.compile(source_head);
-                        var head_html = template_head(doc.fragments);
+                        var head_html = template_head(doc.data);
                         $("#tf-home").html(head_html);
 
                         var source_home = $('#tf-home').html();
                         var template_home = Handlebars.compile(source_home);
-                        var home_html = template_home(doc.fragments);
+                        var home_html = template_home(doc.data);
                         $('#tf-xp-home').html(home_html);
 
-                        if (typeof doc.fragments['formation.background'] !== 'undefined') {
+                        if (typeof doc.data['formation.background'] !== 'undefined') {
                             $("#tf-home").css('background', 'url("' +
-                                doc.fragments['formation.background'].value.main.url + '")');
+                                doc.data['formation.background'].value.main.url + '")');
                             $("#tf-home").css('background-size', 'cover');
                             $("#tf-home").css('background-position', 'center');
                             $("#tf-home").css('background-attachment', 'fixed');
                             $("#tf-home").css('background-repeat', 'no-repeat');
                         }
 
-                        var source_formations = $('#template-prochaines-formations').html();
-                        var template_formations = Handlebars.compile(source_formations);
-                        var formations_html = template_formations(doc.fragments['formation.prochaines_formations']);
-                        $('#collapseProchainesFormations').html(formations_html);
+                        if (typeof doc.data['formation.prochaines_formations'] === 'undefined') 
+                            $('#tf-prochaines-formations').hide();
+                        else {
+                            var source_formations = $('#template-prochaines-formations').html();
+                            var template_formations = Handlebars.compile(source_formations);
+                            var formations_html = template_formations(doc.data['formation.prochaines_formations']);
+                            $('#collapseProchainesFormations').html(formations_html);
+                        }
 
                         var source_objectifs = $('#template-objectifs').html();
-                        var template_objectifs = Handlebars.compile(source_objectifs);
-                        var objectifs_html = template_objectifs(doc.fragments['formation.objectifs']);
+                        var template_objectifs = Handlebars.compile(source_objectifs, {'noEscape' : true});
+                        var objectifs_html = template_objectifs(doc.getStructuredText('formation.objectifs').asHtml());
                         $('#tf-objectifs').html(objectifs_html);
 
                         var source_moyens = $('#template-moyens').html();
-                        var template_moyens = Handlebars.compile(source_moyens);
-                        var moyens_html = template_moyens(doc.fragments['formation.moyens']);
+                        var template_moyens = Handlebars.compile(source_moyens, {'noEscape' : true});
+                        var moyens_html = template_moyens(doc.getStructuredText('formation.moyens').asHtml());
                         $('#tf-moyens').html(moyens_html);
 
                         var source_formateurs = $('#template-formateurs').html();
                         var template_formateurs = Handlebars.compile(source_formateurs);
-                        var formateurs_html = template_formateurs(doc.fragments['formation.formateurs']);
+                        var formateurs_html = template_formateurs(doc.data['formation.formateurs']);
                         $('#tf-formateurs').html(formateurs_html);
 
                         var source_pratique = $('#template-pratique').html();
-                        var template_pratique = Handlebars.compile(source_pratique);
-                        var pratique_html = template_pratique(doc.fragments['formation.infos']);
+                        var template_pratique = Handlebars.compile(source_pratique, {'noEscape' : true});
+                        var pratique_html = template_pratique(doc.getStructuredText('formation.infos').asHtml());
                         $('#tf-pratique').html(pratique_html);
 
-                        if(typeof doc.fragments['formation.pdf'] !== 'undefined') {
+                        if(typeof doc.data['formation.pdf'] !== 'undefined') {
                             var source_file = $('#tf-bottom-buttons').html();
                             var template_file = Handlebars.compile(source_file);
-                            var file_html = template_file(doc.fragments['formation.pdf'].value.file.url);
+                            var file_html = template_file(doc.data['formation.pdf'].value.file.url);
                             $('#tf-bottom-buttons').html(file_html);
                         }
                     });

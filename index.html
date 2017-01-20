@@ -61,7 +61,7 @@
 
         <script src="js/vendor/handlebars.js"></script>
         <script src="js/vendor/lodash.core.js"></script>
-        <script src="js/vendor/prismic.io-1.0.28.min.js"></script>
+        <script src="js/vendor/prismic.io.min.js"></script>
         <script src="js/prismic-configuration.js"></script>
         <script src="js/prismic-helpers.js"></script>
         <script src="js/handlebars-templates.js"></script>
@@ -178,13 +178,13 @@
                                 {{! Photo de profil à gauche}}
                                 {{#if_mod @index 2 0}}
                                     <div class="col-sm-2">
-                                        <img src="{{fragments.[formateur.image].value.main.url}}" alt="{{name.value}}" class="img-responsive img-circle img-thumbnail">
+                                        <img src="{{data.[formateur.image].value.main.url}}" alt="{{data.[formateur.name].value}}" class="img-responsive img-circle img-thumbnail">
                                     </div>                                    
                                 {{/if_mod}}
 
                                 <div class="col-sm-10">
-                                    <h2 style="font-weight: bold">{{fragments.[formateur.name].value}}</h2>
-                                    {{#each fragments.[formateur.bio].value}}
+                                    <h2 style="font-weight: bold">{{data.[formateur.name].value}}</h2>
+                                    {{#each data.[formateur.bio].value}}
                                         <p>{{this.text}}</p>
                                     {{/each}}
                                 </div>
@@ -192,7 +192,7 @@
                                 {{! Photo de profil à droite}}
                                 {{#if_mod @index 2 1}}
                                     <div class="col-sm-2">
-                                        <img src="{{fragments.[formateur.image].value.main.url}}" alt="{{name.value}}" class="img-responsive img-circle img-thumbnail">
+                                        <img src="{{data.[formateur.image].value.main.url}}" alt="{{data.[formateur.name].value}}" class="img-responsive img-circle img-thumbnail">
                                     </div>
                                 {{/if_mod}}
                             </div>
